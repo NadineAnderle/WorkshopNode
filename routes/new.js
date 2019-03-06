@@ -6,4 +6,5 @@ router.get('/', function(req, res, next) {
   res.render('new', { title: 'New Example' });
 });
 
+
 module.exports = router;

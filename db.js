@@ -1,11 +1,23 @@
 var mongoClient = require('mongodb').MongoClient;
-mongoClient.connect('mongodb://nadineteste:9mj8jS7BY4pJfyH@kamino.mongodb.umbler.com:49415/teste')
- .then(conn => global.conn = conn)
- .catch(err => console.log(err))
+var ObjectId = require('mongodb').ObjectID;
+mongoClient.connect('mongodb://nadineteste:workshop123@kamino.mongodb.umbler.com:51179/workshop', { useNewUrlParser: true })
+    .then(conn => global.conn = conn.db('workshop'))
+    .catch(err => console.log(err))
 
 
-function findAll(callback){
+function findAll(callback) {
+    //let banco=global.conn.db('workshop');
     global.conn.collection('customers').find({}).toArray(callback);
 }
 
-module.exports = { findAll}
+function insert(customer, callback) {
+    //let banco=global.conn.db('workshop');
+    global.conn.collection('customers').insert(customer, callback);
+}
+
+function deleteOne(id, callback) {
+    //  let banco=global.conn.db('workshop');
+    global.conn.collection('customers').deleteOne({ _id: new ObjectId(id) }, callback);
+}
+
+module.exports = { findAll, insert, deleteOne }
